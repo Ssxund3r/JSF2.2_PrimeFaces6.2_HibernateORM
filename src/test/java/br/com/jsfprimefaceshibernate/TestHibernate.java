@@ -11,7 +11,7 @@ public class TestHibernate {
 		
 		GenericDao<UsuarioPessoa> daoGeneric =
 				new GenericDao<UsuarioPessoa>();// Instância o DAO genérico
-		UsuarioPessoa pessoa = new UsuarioPessoa(); // Cria o obejto para ser salvo
+		UsuarioPessoa pessoa = new UsuarioPessoa(); // Cria o objeto para ser salvo
 
 		// Seta todas as propriedades do objeto
 		pessoa.setIdade(45);

@@ -3,7 +3,7 @@ package br.com.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.hibernate.mapping.List;
+import java.util.List;
 
 import br.com.jsfprimefaceshibernate.HibernateUtil;
 
@@ -42,7 +42,7 @@ public class GenericDao<E> {
 
 	}
 
-	public void deletarPoId(E entidade) throws Exception {
+	public void deletarPorId(E entidade) throws Exception {
 		Object id = HibernateUtil.getPrimaryKey(entidade); // Obtem o ID do objeto PK
 		EntityTransaction transaction = entityManager.getTransaction();// Obejeto de transação
 		transaction.begin();// Começa uma Transação no banco de dados
@@ -54,6 +54,7 @@ public class GenericDao<E> {
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listar(Class<E> entidade) {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
