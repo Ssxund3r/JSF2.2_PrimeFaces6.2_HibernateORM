@@ -7,11 +7,19 @@
 <h:head>
 	<h:outputLabel>JSF - PrimeFaces - Hibernate</h:outputLabel>
 </h:head>
-<h:body>
+<h:body >
+	
+	<h:form>
+		<p:breadCrumb>
+		<p:menuitem />
+			<p:menuitem value="Página JSF" action="index.jsf" />
+			<p:menuitem value="Página PrimeFaces" action="primefaces.jsf" />
+		</p:breadCrumb>
+	</h:form>
 	
 <h:form>
 	<h:messages showDetail="true" />
-	<h:panelGrid columns="2">
+	 <h:panelGrid columns="2">
 	
 		<h:outputLabel>ID:</h:outputLabel>
 		<h:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
@@ -24,6 +32,13 @@
 		
 		<h:outputLabel>Idade:</h:outputLabel>
 		<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" />
+		
+		<h:outputLabel>Sexo: </h:outputLabel>
+		<h:selectOneMenu value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
+			<f:selectItem itemValue="[ Selecione ]" />
+			<f:selectItem itemValue="MASCULINO" />
+			<f:selectItem itemValue="FEMININO" />
+		</h:selectOneMenu> 
 		
 		<h:outputLabel>E-mail:</h:outputLabel>
 		<h:inputText  value="#{usuarioPessoaManagedBean.usuarioPessoa.email}" />
