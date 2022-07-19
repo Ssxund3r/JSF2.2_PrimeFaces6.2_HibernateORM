@@ -52,8 +52,8 @@
 		
 	</h:panelGrid>
 	
-	<h:commandButton value="Salvar" action="#{usuarioPessoaManagedBean.salvar}"></h:commandButton>
-	<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}"></h:commandButton>
+	<h:commandButton value="Salvar" action="#{usuarioPessoaManagedBean.salvar}" />
+	<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}" />
 	
 	<h:dataTable value="#{usuarioPessoaManagedBean.list}" var="user" cellpadding="15" border="1">
 		<f:facet name="header">Lista de Usuários</f:facet>
@@ -90,15 +90,18 @@
 		
 		<h:column>
 		<f:facet name="header">Editar</f:facet>
-			<h:commandLink value="Editar">
+			<h:commandLink immediate="true" id="botaoeditar">
 				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+				<h:graphicImage url="resources/img/editIcon.png" width="25" height="25" />
+				<f:ajax execute="botaoeditar" render="@form" />
 			</h:commandLink>
 		</h:column>
 		
 		<h:column>
 		<f:facet name="header">Deletar</f:facet>
-			<h:commandLink value="Delete" action="#{usuarioPessoaManagedBean.remover}"> 
+			<h:commandLink action="#{usuarioPessoaManagedBean.remover}" immediate="true" > 
 				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+				<h:graphicImage url="resources/img/deleteIcon.png" width="25" height="25" />
 			</h:commandLink>
 		</h:column>
 		
