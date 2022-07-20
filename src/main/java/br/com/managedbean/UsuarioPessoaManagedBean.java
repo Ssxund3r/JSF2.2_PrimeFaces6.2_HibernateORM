@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.dao.GenericDao;
+import br.com.dao.DaoUsuario;
 import br.com.model.UsuarioPessoa;
 
 @ManagedBean(name = "usuarioPessoaManagedBean")
@@ -17,10 +17,8 @@ import br.com.model.UsuarioPessoa;
 public class UsuarioPessoaManagedBean {
 
 	private UsuarioPessoa usuarioPessoa = new UsuarioPessoa();
-
-	private GenericDao<UsuarioPessoa> genericDao = new GenericDao<UsuarioPessoa>();
-
 	private List<UsuarioPessoa> list = new ArrayList<UsuarioPessoa>();
+	private DaoUsuario<UsuarioPessoa> genericDao = new DaoUsuario<UsuarioPessoa>();
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -56,7 +54,7 @@ public class UsuarioPessoaManagedBean {
 
 	public String remover() {
 		try {
-			genericDao.deletarPorId(usuarioPessoa);
+			genericDao.removerUsuario(usuarioPessoa);
 			list.remove(usuarioPessoa);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Removido com sucesso!"));
@@ -66,6 +64,8 @@ public class UsuarioPessoaManagedBean {
 			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Existem telefones para o usuário!"));
+			} else {
+				e.printStackTrace();
 			}
 		}
 
