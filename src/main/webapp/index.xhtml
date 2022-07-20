@@ -94,6 +94,14 @@
 		</h:column>
 		
 		<h:column>
+		<f:facet name="header">Contatos</f:facet>
+			<h:commandLink action="telefone.jsf" immediate="true" id="btnfone" > 
+				<h:graphicImage url="resources/img/telefoneIcon.png" width="25" height="25" />
+				<f:param name="codigouser" value="#{user.id}" />
+			</h:commandLink>
+		</h:column>
+		
+		<h:column>
 		<f:facet name="header">Editar</f:facet>
 			<h:commandLink immediate="true" id="botaoeditar">
 				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
@@ -104,9 +112,10 @@
 		
 		<h:column>
 		<f:facet name="header">Deletar</f:facet>
-			<h:commandLink action="#{usuarioPessoaManagedBean.remover}" immediate="true" > 
+			<h:commandLink action="#{usuarioPessoaManagedBean.remover}" immediate="true" id="btnremover" > 
 				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
 				<h:graphicImage url="resources/img/deleteIcon.png" width="25" height="25" />
+				<f:ajax execute="btnremover" render="@form :formulario:msg" />
 			</h:commandLink>
 		</h:column>
 		
