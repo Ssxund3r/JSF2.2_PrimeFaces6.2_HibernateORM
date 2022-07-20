@@ -3,6 +3,7 @@ package br.com.managedbean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,6 +22,13 @@ public class UsuarioPessoaManagedBean {
 
 	private List<UsuarioPessoa> list = new ArrayList<UsuarioPessoa>();
 
+	@SuppressWarnings("unchecked")
+	@PostConstruct
+	public void init() {
+		list = genericDao.listar(UsuarioPessoa.class);
+
+	}
+
 	public UsuarioPessoa getUsuarioPessoa() {
 		return usuarioPessoa;
 	}
@@ -31,8 +39,10 @@ public class UsuarioPessoaManagedBean {
 
 	public String salvar() {
 		genericDao.salvar(usuarioPessoa);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Salvo com Sucesso!"));
-		return "";
+		list.add(usuarioPessoa);
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Salvo com Sucesso!"));
+		return "usuario-salvo";
 	}
 
 	public String novo() {
@@ -40,18 +50,26 @@ public class UsuarioPessoaManagedBean {
 		return "";
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<UsuarioPessoa> getList() {
-		list = genericDao.listar(UsuarioPessoa.class);
 		return list;
 	}
-	
-	public String remover() throws Exception {
-		genericDao.deletarPorId(usuarioPessoa);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Removido com sucesso!"));
-		usuarioPessoa = new UsuarioPessoa();
+
+	public String remover() {
+		try {
+			genericDao.deletarPorId(usuarioPessoa);
+			list.remove(usuarioPessoa);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Removido com sucesso!"));
+			usuarioPessoa = new UsuarioPessoa();
+
+		} catch (Exception e) {
+			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Existem telefones para o usuário!"));
+			}
+		}
+
 		return "";
 	}
-	
 
 }

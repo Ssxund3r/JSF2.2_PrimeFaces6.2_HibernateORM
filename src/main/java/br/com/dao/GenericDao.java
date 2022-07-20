@@ -58,7 +58,7 @@ public class GenericDao<E> {
 	public List listar(Class<E> entidade) {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		List lista = (List) entityManager.createQuery("from " + entidade.getName())// Cria a queru de consulta
+		List lista = (List) entityManager.createQuery("from " + entidade.getName())// Cria a query de consulta
 				.getResultList();// Retorna a lista de objetos consultados
 		transaction.commit();
 

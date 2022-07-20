@@ -17,8 +17,8 @@
 		</p:breadCrumb>
 	</h:form>
 	
-<h:form>
-	<h:messages showDetail="true" />
+<h:form id="formulario">
+	<h:messages showDetail="true" id="msg"/>
 	 <h:panelGrid columns="2">
 	
 		<h:outputLabel>ID:</h:outputLabel>
@@ -48,13 +48,18 @@
 		
 		<h:outputLabel>Senha:</h:outputLabel>
 		<h:inputSecret  value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}" />
-			
-		
+					
 	</h:panelGrid>
 	
 	<h:commandButton value="Salvar" action="#{usuarioPessoaManagedBean.salvar}" />
 	<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}" />
 	
+	<br />
+	<br />
+	
+	</h:form>
+		
+	<h:form id="formtable">
 	<h:dataTable value="#{usuarioPessoaManagedBean.list}" var="user" cellpadding="15" border="1">
 		<f:facet name="header">Lista de Usuários</f:facet>
 		
@@ -93,7 +98,7 @@
 			<h:commandLink immediate="true" id="botaoeditar">
 				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
 				<h:graphicImage url="resources/img/editIcon.png" width="25" height="25" />
-				<f:ajax execute="botaoeditar" render="@form" />
+				<f:ajax execute="botaoeditar" render="@form :formulario:msg" />
 			</h:commandLink>
 		</h:column>
 		
